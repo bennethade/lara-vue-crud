@@ -55,7 +55,7 @@ const handleSubmit = () => {
                     <Input v-model="form.description" type="text" placeholder="Enter Product Description"></Input>
                     <div class="text-sm text-red-600" v-if="form.errors.description">{{ form.errors.description }}</div>
                 </div>
-                <Button type="submit" :disabled="form.processing">Submit</Button>
+                <Button type="submit" :disabled="form.processing">Submit Now</Button>
             </form>
         </div>
     </AppLayout>
