@@ -8,6 +8,22 @@ import { Head, Link, usePage } from '@inertiajs/vue3';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Rocket } from 'lucide-vue-next';
 
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow, } from '@/components/ui/table'
+
+interface Product{
+    id: number,
+    name: string,
+    price: number,
+    description: string,
+}
+
+interface Props{
+    products: Product[];
+}
+
+//Get props from Inertia
+const props = defineProps<Props>();
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -38,9 +54,44 @@ const page = usePage()
             </div>
 
             
-            <Link href="/products/create">
-                <Button>Create Product</Button>
-            </Link>
+            <div>
+                <Link href="/products/create">
+                    <Button>Create Product</Button>
+                </Link>
+            </div>
+
+
+            <div>
+                <Table>
+                    <TableCaption>A list of your recent products</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead class="w-[100px]">ID</TableHead>
+                            <TableHead>Name</TableHead>
+                            <TableHead>Price</TableHead>
+                            <TableHead>Description</TableHead>
+                            <TableHead class="text-center">Action</TableHead>
+                        </TableRow>
+                    </TableHeader>
+
+                    <TableBody>
+
+                        <TableRow v-for="product in props.products" :key="product.id">
+                            <TableCell>{{ product.id }}</TableCell>
+                            <TableCell class="font-medium">{{ product.name }}</TableCell>
+                            <TableCell>{{ product.price }}</TableCell>
+                            <TableCell>{{ product.description }}</TableCell>
+                            <TableCell class="text-center">
+                                delete/edit
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+
+                </Table>
+            </div>
+
+
+
         </div>
     </AppLayout>
 </template>
