@@ -9,33 +9,38 @@ import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'
 import { route } from 'ziggy-js';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Create a Product',
-        href: '/products/create',
-    },
-]
+
+interface Product{
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+}
+
+const props = defineProps<{product: Product}>();
 
 
 const form = useForm({
-   name: '',
-   price: '',
-   description: '',
+   name: props.product.name,
+   price: props.product.price,
+   description: props.product.description,
 });
 
 const handleSubmit = () => {
-    // console.log(form);
-    form.post('store');
-}
+    form.put(`/products/${props.product.id}`);
+};
 
+// const handleSubmit = () => {
+//     form.put(route('products.update', props.product.id));
+// };
 
 
 </script>
 
 <template>
-    <Head title="Create Product" />
+    <Head title="Edit Product" />
 
-    <AppLayout :breadcrumbs="breadcrumbs">
+    <AppLayout :breadcrumbs="[{ title: 'Edit Product', href: `/products/edit/${props.product.id}`, }]">
         <div class="p-4">
             <form @submit.prevent="handleSubmit" class="w-8/12 space-y-4">
                 <div class="space-y-2">
@@ -55,7 +60,7 @@ const handleSubmit = () => {
                     <Input v-model="form.description" type="text" placeholder="Enter Product Description"></Input>
                     <div class="text-sm text-red-600" v-if="form.errors.description">{{ form.errors.description }}</div>
                 </div>
-                <Button type="submit" :disabled="form.processing">Submit Now</Button>
+                <Button type="submit" :disabled="form.processing">Update Now</Button>
             </form>
         </div>
     </AppLayout>
