@@ -1,0 +1,13 @@
+
+
+SHADCN
+https://www.shadcn-vue.com/docs/components/table
+
+
+LUCID 
+https://lucide.dev/icons/rocket
+
+
+
+INERTIA
+https://inertiajs.com/shared-data
